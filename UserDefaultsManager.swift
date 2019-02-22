@@ -1,10 +1,7 @@
-//
-//  UserDefaultsManager.swift
-//  TestProject1
-//
-//  Created by Daniel Illescas Romero on 21/02/2019.
-//  Copyright © 2019 Daniel Illescas Romero. All rights reserved.
-//
+// UserDefaultsManager.swift
+// by Daniel Illescas Romero
+// Github: @illescasDaniel
+// License: MIT
 
 import class Foundation.UserDefaults
 import protocol Foundation.LocalizedError
@@ -73,6 +70,14 @@ public final class UserDefaultsManager {
 		}
 	}
 	
+	public func load(defaults dictionary: [KeyPath<UserDefaultsManager.MemberStub, UserDefaultsManager.MemberStub>: Any]) {
+		let stub = MemberStub()
+		for (key, value) in dictionary {
+			let member = stub[keyPath: key]
+			self.load(defaultValue: value, forKey: member.key)
+		}
+	}
+	
 	// Convenience
 	
 	private func isPropertyListObject<T>(_ object: T) -> Bool {
@@ -117,11 +122,31 @@ extension UserDefaultsManager.Errors.RetrieveError: LocalizedError {
 	}
 }
 
+extension UserDefaultsManager {
+	@dynamicMemberLookup
+	public class MemberStub {
+		var key: String
+		init(key: String = "") {
+			self.key = key
+		}
+		public subscript(dynamicMember member: String) -> UserDefaultsManager.MemberStub {
+			get {
+				return UserDefaultsManager.MemberStub(key: member)
+			} set {
+				self.key = newValue.key
+			}
+		}
+	}
+}
+
+
 UserDefaultsManager.standard.load(defaults: [
-	"isDarkThemeEnabled": false,
-	"isUserLogged": false,
-	"score": 0
+	\.isDarkThemeEnabled: false,
+	\.isUserLogged: false,
+	\.score: 0,
+	\.thingsHere: 5
 ])
+print(UserDefaultsManager.standard.thingsHere ?? 0)
 
 if UserDefaultsManager.standard.isUserLogged == false {
 	let score: Int? = UserDefaultsManager.standard.score
@@ -129,4 +154,7 @@ if UserDefaultsManager.standard.isUserLogged == false {
 }
 
 UserDefaultsManager.standard.isDarkThemeEnabled = true
-print(UserDefaultsManager.standard.isDarkThemeEnabled as Bool? ?? false)
+print(UserDefaultsManager.standard.isDarkThemeEnabled ?? false)
+
+
+

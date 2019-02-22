@@ -7,6 +7,12 @@ Load user preferences in a more simple and dynamic way.
 ```swift
 // Easily load default initial values - (do it in the app delegate)
 UserDefaultsManager.standard.load(defaults: [
+	\.isDarkThemeEnabled: false,
+	\.isUserLogged: false,
+	\.score: 0
+])
+// or:
+UserDefaultsManager.standard.load(defaults: [
 	"isDarkThemeEnabled": false,
 	"isUserLogged": false,
 	"score": 0
@@ -22,5 +28,5 @@ if UserDefaultsManager.standard.isUserLogged == false {
 ```swift
 // Save stuff
 UserDefaultsManager.standard.isDarkThemeEnabled = true
-print(UserDefaultsManager.standard.isDarkThemeEnabled as Bool? ?? false)
+print(UserDefaultsManager.standard.isDarkThemeEnabled ?? false)
 ```
