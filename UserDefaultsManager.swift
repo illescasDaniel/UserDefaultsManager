@@ -64,10 +64,8 @@ public final class UserDefaultsManager {
 		} catch { }
 	}
 	
-	public func load(defaults dictionary: [String: Any]) {
-		for (key, value) in dictionary {
-			self.load(defaultValue: value, forKey: key)
-		}
+	public func register(defaults dictionary: [String: Any]) {
+		self.defaults.register(defaults: dictionary)
 	}
 	
 	public func load(defaults dictionary: [KeyPath<UserDefaultsManager.MemberStub, UserDefaultsManager.MemberStub>: Any]) {
@@ -144,7 +142,8 @@ UserDefaultsManager.standard.load(defaults: [
 	\.isDarkThemeEnabled: false,
 	\.isUserLogged: false,
 	\.score: 0,
-	\.thingsHere: 5
+	\.thingsHere: 5,
+	\.test_test: 22
 ])
 print(UserDefaultsManager.standard.thingsHere ?? 0)
 
@@ -155,6 +154,8 @@ if UserDefaultsManager.standard.isUserLogged == false {
 
 UserDefaultsManager.standard.isDarkThemeEnabled = true
 print(UserDefaultsManager.standard.isDarkThemeEnabled ?? false)
+
+print(UserDefaultsManager.standard.test_test ?? 0)
 
 
 
