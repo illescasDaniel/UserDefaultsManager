@@ -18,8 +18,13 @@ public final class UserDefaultsManager {
 	public static let standard = UserDefaultsManager()
 	private let defaults: UserDefaults
 	
-	public init(defaults: UserDefaults = .standard) {
-		self.defaults = defaults
+	/// If the UserDefaults created from `suiteName` is nil, the class will use `UserDefaults.standard`
+	public convenience init(suiteName: String) {
+		self.init(defaults: UserDefaults(suiteName: suiteName))
+	}
+		
+	fileprivate init(defaults: UserDefaults? = .standard) {
+		self.defaults = defaults ?? .standard
 	}
 	
 	//
@@ -120,7 +125,7 @@ extension UserDefaultsManager.Errors.RetrieveError: LocalizedError {
 	}
 }
 
-extension UserDefaultsManager {
+public extension UserDefaultsManager {
 	@dynamicMemberLookup
 	public class MemberStub {
 		var key: String
@@ -137,6 +142,7 @@ extension UserDefaultsManager {
 	}
 }
 
+// in app-delegate:
 
 UserDefaultsManager.standard.load(defaults: [
 	\.isDarkThemeEnabled: false,
