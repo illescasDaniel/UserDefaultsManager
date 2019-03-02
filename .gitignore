@@ -1,2 +1,5 @@
 UserDefaultsManager
+UserDefaultsManager_dynamic
+UserDefaultsManager_soft_dynamic
+UserDefaultsManager_static
 .DS_STORE
