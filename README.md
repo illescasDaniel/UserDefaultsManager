@@ -7,16 +7,16 @@ UserDefaultsManager
 - Example:
 ```swift
 enum MyUserDefaults {
-	enum Profile: String {
-		case usernameKey
-		static var username = UserDefault(key: Profile.usernameKey, defaultValue: "none")
-		// ...
-	}
-	enum Other: String {
+  enum Profile: String {
+    case usernameKey
+    static var username = UserDefault(key: Profile.usernameKey, defaultValue: "none")
+    // ...
+  }
+  enum Other: String {
     case isXEnabledKey
-		static var isXEnabled = UserDefault(key: Other.isXEnabledKey, defaultValue: false)
-		// ...
-	}
+    static var isXEnabled = UserDefault(key: Other.isXEnabledKey, defaultValue: false)
+    // ...
+  }
 }
 
 // Usage
