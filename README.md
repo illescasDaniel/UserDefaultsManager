@@ -1,6 +1,31 @@
 UserDefaultsManager
 -------
 
+**New**:
+
+`UserDefault`
+- Example:
+```swift
+enum MyUserDefaults {
+	enum Profile: String {
+		case usernameKey
+		static var username = UserDefault(key: Profile.usernameKey, defaultValue: "none")
+		// ...
+	}
+	enum Other: String {
+    case isXEnabledKey
+		static var isXEnabled = UserDefault(key: Other.isXEnabledKey, defaultValue: false)
+		// ...
+	}
+}
+
+// Usage
+let username = MyUserDefaults.Profile.username
+print(username)
+
+MyUserDefaults.Profile.username = "daniel"
+```
+
 Load user preferences faster and/or safer with these 3 different ways:
 
 ### Dynamic
